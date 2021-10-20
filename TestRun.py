@@ -6,6 +6,11 @@ PKmodel = Solution()
 model1_args = {
     'name': 'model1',
     'Q_p': [1.0,2.0],
+    """
+    here even with 1 peripheral compartment, we also have to put the Q_P value in a list instead of a float, but do we need to consider 
+    the case where we have no peripheral compartments?
+    And similar for V_p below
+    """
     'V_c': 1.0,
     'V_p': [1.0,3.0],
     'CL': 1.0,

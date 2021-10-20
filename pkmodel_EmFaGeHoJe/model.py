@@ -58,7 +58,7 @@ class Model:
         N is the number of peripheral compartments
         Q_p is a list with len N such that each entry is the transition rate between the central and the i-th peripheral compartment
         V_P is a list with len N such that each entry is the volume of the i-th peripheral compartment
-        Both y, list_of_q and list_of_rhs have length N+1
+        Both y, list_of_q and list_of_rhs have length N+1 since they include both central and peripheral compartmetns
 
 
 
