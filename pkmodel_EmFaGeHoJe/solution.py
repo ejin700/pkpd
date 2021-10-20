@@ -28,8 +28,6 @@ class Solution:
     def __init__(self):
         self.t_eval = np.linspace(0, 1, 1000)
         self.y0 = np.array([0.0, 0.0])
-        self.fig = plt.figure()
-        self.parameters = parameters
     
     def solveODE(parameters, func):
         self.fig = plt.figure()
