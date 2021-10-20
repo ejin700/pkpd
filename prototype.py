@@ -3,6 +3,7 @@ import numpy as np
 import scipy.integrate
 
 
+
 # This prototype implements the pharmokinetic (PK) model of the intravenous bolus 
 # dosing protocol.
 # The equations  can be found in the following module:
@@ -29,11 +30,15 @@ def dose(t, X):
     # injection (IV)
     return X
 
+
 def rhs(t, y, Q_p1, V_c, V_p1, CL, X):
     """
-    Calculate the right hand side (rhs) for the differential equations of the 
+    Calculate the right hand side (rhs) for the differential equations of the
     intravenous bolus dosing protocol with linear linear clearance from the central
-    compartment. 
+    compartment.
+
+    :param y: float, initial
+
 
     :param t: float, current time, [h]
     :param y: list, initial quantities of the drug in the peripheral and and central
@@ -50,7 +55,6 @@ def rhs(t, y, Q_p1, V_c, V_p1, CL, X):
     entry (float) is the rate of change wrt time of the quantity of the drug in the first 
     peripheral compartment [ng/h]
 
-    
     """
     # We set the inital quantities of the drug in the central and peripheral compartments
     # equal, this is the steady state, a natural choice for y is [0, 0] (no drug present)
@@ -75,6 +79,7 @@ def rhs(t, y, Q_p1, V_c, V_p1, CL, X):
 
 
 
+
 ### Implement the model ####
 
 
@@ -84,6 +89,8 @@ def rhs(t, y, Q_p1, V_c, V_p1, CL, X):
 # two is twice that of model one. 
 
 # Set the parameters for the first 'model'
+
+
 model1_args = {
     'name': 'model1',
     'Q_p1': 1.0,
