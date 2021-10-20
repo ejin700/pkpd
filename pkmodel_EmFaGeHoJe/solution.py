@@ -1,8 +1,8 @@
 #
 # Solution class
 #
-from model import Model
-#from pkmodel_EmFaGeHoJe.model import Model
+#from model import Model
+from pkmodel_EmFaGeHoJe.model import Model
 
 import matplotlib.pylab as plt
 import numpy as np
@@ -32,24 +32,44 @@ class Solution:
     """
     def __init__(self):
         self.t_eval = np.linspace(0, 1, 1000)
-        self.y0 = np.array([0.0, 0.0])
+        
     
-    def solveODE(self, parameters):
+    def solveODE(self, parameters, model='IV'):
         self.fig = plt.figure()
         self.parameters = parameters
         self.Model = Model()
 
-        for parameter in parameters:
-            args = [
-                parameter['Q_p1'], parameter['V_c'], parameter['V_p1'], parameter['CL'], parameter['X']
-            ]
-            sol = scipy.integrate.solve_ivp(
-                fun=lambda t, y: self.Model.get_rhs_IV(t, y, *args),
-                t_span=[self.t_eval[0], self.t_eval[-1]],
-                y0=self.y0, t_eval=self.t_eval
-            )
-            plt.plot(sol.t, sol.y[0, :], label=parameter['name'] + '- q_c')
-            plt.plot(sol.t, sol.y[1, :], label=parameter['name'] + '- q_p1')
+        if model == 'IV':
+            self.y0 = np.array([0.0, 0.0])
+            for parameter in parameters:
+                args = [
+                    parameter['Q_p1'], parameter['V_c'], parameter['V_p1'], parameter['CL'], parameter['X']
+                ]
+                sol = scipy.integrate.solve_ivp(
+                    fun=lambda t, y: self.Model.get_rhs_IV(t, y, *args),
+                    t_span=[self.t_eval[0], self.t_eval[-1]],
+                    y0=self.y0, t_eval=self.t_eval
+                )
+                plt.plot(sol.t, sol.y[0, :], label=parameter['name'] + '- q_c')
+                plt.plot(sol.t, sol.y[1, :], label=parameter['name'] + '- q_p1')
+
+        elif model == 'sub':
+            self.y0 = np.array([0.0, 0.0, 0.0])
+            for parameter in parameters:
+                args = [
+                    parameter['Q_p1'], parameter['V_c'], parameter['V_p1'], parameter['CL'], parameter['X'], parameter['k_a'],
+                ]
+                sol = scipy.integrate.solve_ivp(
+                    fun=lambda t, y: self.Model.get_rhs_sub(t, y, *args),
+                    t_span=[self.t_eval[0], self.t_eval[-1]],
+                    y0=self.y0, t_eval=self.t_eval
+                )
+                plt.plot(sol.t, sol.y[0, :], label=parameter['name'] + '- dq0_dt')
+                plt.plot(sol.t, sol.y[1, :], label=parameter['name'] + '- q_c')
+                plt.plot(sol.t, sol.y[2, :], label=parameter['name'] + '- q_p1')
+        
+        else:
+            raise ValueError("the two possible models are 'IV' and 'sub")
 
         plt.legend()
         plt.ylabel('drug mass [ng]')
