@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "pkmodel-EmFaGeHoJe"
+version = "0.1.0"
+description = "Pharmokinetics modelling project to solve and visualise the solution of a PK model"
+authors = ["Emily Jin, Fabian Spoendlin, Gemma Gordon, Hongyu Qian, Jesse Murray"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = ">=3.7,<3.10"
+matplotlib = "^3.4.3"
+numpy = "~=1.20.0"
+scipy = "^1.7.1"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^4.0.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
