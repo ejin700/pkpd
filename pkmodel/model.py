@@ -15,7 +15,11 @@ class Model:
     ----------
 
     value: numeric, optional
-        an example paramter
+    'Q_p1': numeric,
+    'V_c': numeric,
+    'V_p1': numeric,
+    'CL': numeric,
+    'X': function,
 
     """
     def __init__(self, value=42):
