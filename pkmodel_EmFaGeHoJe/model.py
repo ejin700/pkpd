@@ -23,31 +23,41 @@ class Model:
     'dose': function,
 
     """
-    def __init__(self, name):
-        self.name = name
+    def __init__(self):
+        pass
+        
 
-    def add_parameters_IV(self, Q_p1, V_c, V_p1, CL, dose):
-        """"""
-        dict_parameter = {
-            'Q_p1' : Q_p1,
-            'V_c' : V_c,
-            'V_p1' : V_p1,
-            'CL' : CL,
-            'dose' : dose
-        }
-        self.param = dict_parameter
-        return dict_parameter
-
-    def get_rhs_IV(self,t,y):
+#    def add_parameters_IV(self, Q_p1, V_c, V_p1, CL, dose):
+#        """"""
+#        dict_parameter = {
+#            'Q_p1' : Q_p1,
+#            'V_c' : V_c,
+#            'V_p1' : V_p1,
+#            'CL' : CL,
+#            'dose' : dose
+#        }
+#        self.param = dict_parameter
+#        return dict_parameter
+    def dose(self, t, X):
         """
-    :returns: list, first entry (float) is the rate of change of the quantity of the drug 
-    in the central compartment with respect to (wrt) time [ng/h]. Likewise, the second 
-    entry (float) is the rate of change wrt time of the quantity of the drug in the first 
-    peripheral compartment [ng/h]
+        Calculate the instantaneous dose for a given time (t) and input dose (X).
+
+        :param t: float, time [h]
+        :param X: float, input dose [ng]
+        :returns: float, instantaneous dose [ng]
+        """
+        return X
+
+    def get_rhs_IV(self,t, y, Q_p1, V_c, V_p1, CL, X):
+        """
+        :returns: list, first entry (float) is the rate of change of the quantity of the drug 
+        in the central compartment with respect to (wrt) time [ng/h]. Likewise, the second 
+        entry (float) is the rate of change wrt time of the quantity of the drug in the first 
+        peripheral compartment [ng/h]
         """
         q_c, q_p1 = y
-        transition = self.param['Q_p1'] * (q_c / self.param['V_c'] - q_p1 / self.param['V_p1'])
-        dqc_dt = self.param['dose'](t) - q_c / self.param['V_c'] * self.param['CL'] - transition
+        transition = Q_p1 * (q_c / V_c - q_p1 / V_p1)
+        dqc_dt = self.dose(t, X) - q_c / V_c * CL - transition
         dqp1_dt = transition
         return [dqc_dt, dqp1_dt]
 
