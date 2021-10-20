@@ -3,9 +3,24 @@ import numpy as np
 import scipy.integrate
 
 def dose(t, X):
+    """
+    Calculate the instantaneous dose for a given time (t) and input dose (X).
+
+    :param t: float, time [h]
+    :param X: float, input dose [ng]
+    :returns: float, instantaneous dose [ng]
+    """
     return X
 
 def rhs(t, y, Q_p1, V_c, V_p1, CL, X):
+    """
+    Calculate the right hand side (rhs) for the differential equations of the 
+    intravenous bolus dosing protocol with linear linear clearance from the central
+    compartment. 
+
+    :param y: float, initial 
+    
+    """
     q_c, q_p1 = y
     transition = Q_p1 * (q_c / V_c - q_p1 / V_p1)
     dqc_dt = dose(t, X) - q_c / V_c * CL - transition
