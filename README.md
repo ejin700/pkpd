@@ -1,3 +1,5 @@
+[![Python package PKPD](https://github.com/ejin700/pkpd/actions/workflows/pkpd_ci.yml/badge.svg?branch=master)](https://github.com/ejin700/pkpd/actions/workflows/pkpd_ci.yml)
+
 # **Software engineering project 2021**
 ## **Pharmacokinetic modelling**
 
