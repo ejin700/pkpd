@@ -62,4 +62,14 @@ class Model:
         return [dqc_dt, dqp1_dt]
 
 
+    def get_rhs_sub(self, t, y, Q_p1, V_c, V_p1, CL, X, k_a):
+        q_0, q_c, q_p1 = y
+        transition_1 = k_a * q_0
+        transition_2 = Q_p1 * (q_c / V_c - q_p1 / V_p1)
+        dq0_dt = self.dose(t,x) - transition_1
+        dqc_dt = transition_1 - q_c / V_c * CL - transition_2
+        dqp1_dt = transition_2
+        return [dq0_dt, dqc_dt, dqp1_dt]
+
+
 
