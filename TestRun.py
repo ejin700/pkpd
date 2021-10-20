@@ -1,5 +1,5 @@
-from pkmodel_EmFaGeHoJe.solution import Solution
-#from pkmodel_EmFaGeHoJe.model import Model
+from solution import Solution
+#from pkmodel_EmFaGeHoJe.solution import Solution
 
 model = Solution()
 

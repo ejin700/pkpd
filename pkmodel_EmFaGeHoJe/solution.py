@@ -1,7 +1,8 @@
 #
 # Solution class
 #
-from pkmodel_EmFaGeHoJe.model import Model
+from model import Model
+#from pkmodel_EmFaGeHoJe.model import Model
 
 import matplotlib.pylab as plt
 import numpy as np
