@@ -38,9 +38,10 @@ class Model:
 #        }
 #        self.param = dict_parameter
 #        return dict_parameter
-    def dose(self, t, X):
+    def dose_constant(self, t, X):
         """
-        Calculate the instantaneous dose for a given time (t) and input dose (X).
+        Calculate the instantaneous dose for a given time (t) and input dose (X)
+        under a constant dosing function, like an intravenous injection (IV).
 
         :param t: float, current time, [h]
         :param X: float, input dose, [ng]
@@ -48,9 +49,26 @@ class Model:
         :returns: float, instantaneous dose, [ng/h]
         """
 
-        # The instantaneous dose is constant over time, analogous to an intravenous 
-        # injection (IV)
+        # The instantaneous dose is constant over time, analogous to an 
         return X
+
+
+    def dose_injection(self, t, X):
+
+        """
+        Calculate the instantaneous dose for a given time (t) and input dose (X)
+        under a piecewise dosing function (injection).
+
+        :param t: float, current time, [h]
+        :param X: float, input dose, [ng]
+
+        :returns: float, instantaneous dose, [ng/h]
+        """
+
+        if t < 10:
+            return X * 100
+        else:
+            return 0
 
     def get_rhs_IV(self,t, y, Q_p, V_c, V_p, CL, X, N):
         """
