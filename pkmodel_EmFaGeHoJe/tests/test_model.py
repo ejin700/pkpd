@@ -1,8 +1,8 @@
 import unittest
 
+
 import pkmodel_EmFaGeHoJe.model as pkm
 import numpy as np
-
 
 class ModelTest(unittest.TestCase):
     """
@@ -12,6 +12,7 @@ class ModelTest(unittest.TestCase):
         """
         Tests Model creation.
         """
+
         t_eval = np.linspace(0, 1, 1000, endpoint=False)
 
         X = 1.0
@@ -27,4 +28,5 @@ class ModelTest(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
 
