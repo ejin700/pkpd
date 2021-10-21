@@ -31,20 +31,30 @@ class Solution:
     solveODE
     """
     def __init__(self):
+        self.Model = Model()
+    
+    def solve_and_plot_ODE(self, parameters, model='IV'):
+        self.parameters = parameters
+        # Set the times evaluated to be 1000 points equally spaced between 
+        # 0 and 1 hours (inclusive)
         self.t_eval = np.linspace(0, 1, 1000)
         
-    
-    def solveODE(self, parameters, model='IV'):
         self.fig = plt.figure()
-        self.parameters = parameters
-        self.Model = Model()
+        
 
         if model == 'IV':
             for parameter in parameters:
+
+                # Create a list of the arguments to the rhs function
                 args = [
                     parameter['Q_p'], parameter['V_c'], parameter['V_p'], parameter['CL'], parameter['X'], parameter['N']
                 ]
+
+                # Set the initial amounts of the drug in the central and first peripheral compartments, 
+                # respectively, to both 0
                 self.y0 = np.zeros(parameter['N']+1)
+
+                # Solve and plot
                 sol = scipy.integrate.solve_ivp(
                     fun=lambda t, y: self.Model.get_rhs_IV(t, y, *args),
                     t_span=[self.t_eval[0], self.t_eval[-1]],
