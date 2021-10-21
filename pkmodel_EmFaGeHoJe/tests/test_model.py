@@ -1,5 +1,4 @@
 import unittest
-import pkmodel as pk
 
 
 class ModelTest(unittest.TestCase):
@@ -10,6 +9,5 @@ class ModelTest(unittest.TestCase):
         """
         Tests Model creation.
         """
-        model = pk.Model()
-        self.assertEqual(model.value, 42)
+        pass
 
