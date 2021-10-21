@@ -9,31 +9,39 @@ import numpy as np
 import scipy.integrate
 
 class Solution:
-    """A Pharmokinetic (PK) model solution
-
-    Parameters
-    ----------
-
-    parameters: list of dictionaries
-        Specifies parameters for solving the ODE. Format:
-        model1_args = {
-            'name': 'model1',
-            'Q_p1': 1.0,
-            'V_c': 1.0,
-            'V_p1': 1.0,
-            'CL': 1.0,
-            'X': 1.0,
-            }
+    """A class that solves a Pharmacokinetics model
 
     Methods
     -------
 
-    solveODE
+    solve_and_plot_ODE
+        takes a set of parameters and a type of dosing and returns a plot of the pk model
     """
     def __init__(self):
         self.Model = Model()
     
     def solve_and_plot_ODE(self, parameters, model='IV'):
+        '''
+        Solves ODE and plots pk model.
+
+        :param parameters: list of dictionaries
+            a set of parameters for an individual model is formated in a dictionary:
+            model1_args = {
+                'name': 'str',      #name of model
+                'Q_p': [float],     #transition rate constant between the central and peripheral compartment [mL/h]
+                'V_c': float,       #Volume of the central compartment [mL]
+                'V_p': [float],     #Volume of peripheral compartments [mL]
+                'CL': float,        #clearance rate [mL/h]
+                'X': float,         #input dose, [ng]
+                'N': int,           #number of compartments
+                'dosing' : 'str'    #options: 'constant' or 'injection'
+                }
+            several sets of parameters to plot multiple models can be passed to the method inside a list.
+        :param model: string, optional
+            specify type of dosing, model='IV' for intravenous (default), model='sub' for subcutaneous
+        
+        :retuns: plot of the PK model
+        '''
         self.parameters = parameters
         # Set the times evaluated to be 1000 points equally spaced between 
         # 0 and 1 hours (inclusive)
