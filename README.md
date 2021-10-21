@@ -4,6 +4,8 @@
 
 [![Documentation Status](https://readthedocs.org/projects/pk-project/badge/?version=latest)](https://pk-project.readthedocs.io/en/latest/?badge=latest)
 
+[![codecov](https://codecov.io/gh/ejin700/pkpd/branch/master/graph/badge.svg?token=Y6F96TKO7W)](https://codecov.io/gh/ejin700/pkpd)
+
 # **Software engineering project 2021**
 ## **Pharmacokinetic modelling**
 
