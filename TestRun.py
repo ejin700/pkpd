@@ -3,6 +3,13 @@ from pkmodel_EmFaGeHoJe.solution import Solution
 
 PKmodel = Solution()
 
+
+### Implement the model ####
+
+
+## Initialize the parameters ##
+
+
 model1_args = {
     'name': 'model1',
     'Q_p': [1.0,2.0],

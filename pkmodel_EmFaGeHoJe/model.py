@@ -42,14 +42,33 @@ class Model:
         """
         Calculate the instantaneous dose for a given time (t) and input dose (X).
 
-        :param t: float, time [h]
-        :param X: float, input dose [ng]
-        :returns: float, instantaneous dose [ng]
+        :param t: float, current time, [h]
+        :param X: float, input dose, [ng]
+
+        :returns: float, instantaneous dose, [ng/h]
         """
+
+        # The instantaneous dose is constant over time, analogous to an intravenous 
+        # injection (IV)
         return X
 
     def get_rhs_IV(self,t, y, Q_p, V_c, V_p, CL, X, N):
         """
+
+        Calculate the right hand side (rhs) for the differential equations of the
+        intravenous bolus dosing protocol with linear linear clearance from the central
+        compartment.
+
+        :param t: float, current time, [h]
+        :param y: list, initial quantities of the drug in the peripheral and central
+        compartments, [ng, ng]
+        :param Q_p1: float, the transition rate constant between the central compartment and 
+        the first peripheral compartment, [mL/h]
+        :param V_c: float, the volume of the central compartment, [mL]
+        :param V_p1: float, the volume of the first peripheral compartment, [mL]
+        :param CL: float, the clearance/elimination rate from the central compartment, [mL/h]
+        :param X: float, input dose, [ng]
+
         :returns: list, first entry (float) is the rate of change of the quantity of the drug 
         in the central compartment with respect to (wrt) time [ng/h]. Likewise, the second 
         entry (float) is the rate of change wrt time of the quantity of the drug in the first 
@@ -63,8 +82,11 @@ class Model:
 
 
         """
+
+        # We set the inital quantities of the drug in the central and peripheral compartments
+        # equal, this is the steady state, a natural choice for y is [0, 0] (no drug present)
         list_of_q = y
-        list_of_rhs = [None] *(N+1)
+        list_of_rhs = [None] * (N+1)
         list_of_rhs[0] = self.dose(t, X) - list_of_q[0] / V_c * CL
         for i in range(1,N+1):
             list_of_rhs[i] = Q_p[i-1] * (list_of_q[0] / V_c - list_of_q[i] / V_p[i-1]) 
