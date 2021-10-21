@@ -35,16 +35,17 @@ model2_args = {
     'N': 1,
 }
 
-PKmodel.solveODE([model1_args, model2_args], model='IV')
+#PKmodel.solveODE([model1_args, model2_args], model='IV')
 
 model3_args = {
     'name': 'model1',
-    'Q_p1': 1.0,
+    'Q_p': [1.0,2.5,3.5],
     'V_c': 1.0,
-    'V_p1': 1.0,
+    'V_p': [1.0,2.4,1.0],
     'CL': 1.0,
     'X': 1.0,
-    'k_a': 1.0,
+    'k_a': 5.0,
+    'N' : 3
 }
 
-#PKmodel.solveODE([model3_args], model='sub')
+PKmodel.solveODE([model3_args], model='sub')
