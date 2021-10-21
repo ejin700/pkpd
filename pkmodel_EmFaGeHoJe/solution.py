@@ -8,6 +8,7 @@ import matplotlib.pylab as plt
 import numpy as np
 import scipy.integrate
 
+
 class Solution:
     """A Pharmokinetic (PK) model solution
 
@@ -45,7 +46,8 @@ class Solution:
 
                 # Create a list of the arguments to the rhs function
                 args = [
-                    parameter['Q_p'], parameter['V_c'], parameter['V_p'], parameter['CL'], parameter['X'], parameter['N'], parameter['dosing'],
+                    parameter['Q_p'], parameter['V_c'], parameter['V_p'], 
+                    parameter['CL'], parameter['X'], parameter['N'], parameter['dosing']
                 ]
 
                 # Set the initial amounts of the drug in the central and first peripheral compartments,
@@ -59,7 +61,7 @@ class Solution:
                     y0=self.y0, t_eval=self.t_eval
                 )
                 plt.plot(sol.t, sol.y[0, :], label=parameter['name'] + '- q_c')
-                for i in range(1, parameter['N'] +1 ):
+                for i in range(1, parameter['N'] + 1):
                     plt.plot(sol.t, sol.y[i, :], label=parameter['name'] + f'- q_p{i}')
 
         elif model == 'sub':
@@ -76,7 +78,7 @@ class Solution:
                 )
                 plt.plot(sol.t, sol.y[0, :], label=parameter['name'] + '- q0')
                 plt.plot(sol.t, sol.y[1, :], label=parameter['name'] + '- q_c')
-                for i in range(1, parameter['N']+1):
+                for i in range(1, parameter['N'] + 1):
                     plt.plot(sol.t, sol.y[i + 1, :], label=parameter['name'] + f'- q_p{i}')
 
         else:
