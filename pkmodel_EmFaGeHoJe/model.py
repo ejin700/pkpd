@@ -72,8 +72,19 @@ class Model:
         return list_of_rhs
 
 
-    def get_rhs_sub(self, t, y, Q_p1, V_c, V_p1, CL, X, k_a):
-        q_0, q_c, q_p1 = y
+    def get_rhs_sub(self, t, y, Q_p, V_c, V_p, CL, X, k_a, N):
+        list_of_q = y
+        list_of_rhs = [None] * (N+2)
+        list_of_rhs[0] = self.dose(t,X) - k_a * list_of_q[0]
+        list_of_rhs[1] = k_a * list_of_q[0] - list_of_q[1] / V_c * CL
+        for i in range(2,N+2):
+            list_of_rhs[i] = Q_p[i-2] * (list_of_q[1] / V_c - list_of_q[i] / V_p[i-2])
+            list_of_rhs[1] = list_of_rhs[1] - list_of_rhs[i]
+        return list_of_rhs
+
+
+
+
         transition_1 = k_a * q_0
         transition_2 = Q_p1 * (q_c / V_c - q_p1 / V_p1)
         dq0_dt = self.dose(t,X) - transition_1
