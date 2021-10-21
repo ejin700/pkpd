@@ -21,6 +21,7 @@
 4. Visualisation of the solution of a model. The user can compare two different solutions.
 
 ### **Example of using the library**
+*For an example how to use the library see TestRun.py or the code below:
 
 `>>> from pkmodel_EmFaGeHoJe.solution import Solution`
 
