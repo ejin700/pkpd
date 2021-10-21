@@ -53,8 +53,8 @@ class Model:
         :param t: float, current time, [h]
         :param y: list, initial quantities of the drug in the peripheral and central
         compartments, [ng, ng]
-        :param Q_p: list, each entry(float) is the transition rate constant between the central compartment and
-        the peripheral compartments, [mL/h]
+        :param Q_p: list, each entry(float) is the transition rate constant between the central
+        compartment and the peripheral compartments, [mL/h]
         :param V_c: float, the volume of the central compartment, [mL]
         :param V_p: list, each entry(float) is the the volume of the peripheral compartments, [mL]
         :param CL: float, the clearance/elimination rate from the central compartment, [mL/h]
@@ -101,8 +101,8 @@ class Model:
         :param t: float, current time, [h]
         :param y: list, initial quantities of the drug in the peripheral and central
         compartments, [ng, ng]
-        :param Q_p: list, each entry(float) is the transition rate constant between the central compartment and
-        the peripheral compartments, [mL/h]
+        :param Q_p: list, each entry(float) is the transition rate constant between the central
+        compartment and the peripheral compartments, [mL/h]
         :param V_c: float, the volume of the central compartment, [mL]
         :param V_p: list, each entry(float) is the the volume of the peripheral compartments, [mL]
         :param CL: float, the clearance/elimination rate from the central compartment, [mL/h]
@@ -114,8 +114,8 @@ class Model:
         :returns: list, first entry (float) is the rate of change of the quantity of the drug
         in the first compartment with respect to (wrt) time [ng/h] and second entry (float) is
         the rate of change of the quantity of the drug in the central compartment with respect
-        to (wrt) time [ng/h]. Likewise, the rest of the entries (float) are the rates of change wrt time of the quantity of the drug in the
-        peripheral compartments [ng/h]
+        to (wrt) time [ng/h]. Likewise, the rest of the entries (float) are the rates of change
+        wrt time of the quantity of the drug in the peripheral compartments [ng/h]
         """
         if type(Q_p) is not list or type(V_p) is not list:
             raise TypeError("The type of Q_p and V_p should be a list")
@@ -137,3 +137,4 @@ class Model:
             list_of_rhs[i] = Q_p[i - 2] * (list_of_q[1] / V_c - list_of_q[i] / V_p[i - 2])
             list_of_rhs[1] = list_of_rhs[1] - list_of_rhs[i]
         return list_of_rhs
+        
