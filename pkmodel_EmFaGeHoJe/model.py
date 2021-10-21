@@ -63,7 +63,7 @@ class Model:
         :param dosing: string, indicating if the dosing protocal is "constant" or "injection"
 
         :returns: list, first entry (float) is the rate of change of the quantity of the drug
-        in the central compartment with respect to (wrt) time [ng/h]. Likewise, the following
+        in the central compartment with respect to (wrt) time [ng/h]. Likewise, the rest of the
         entries (float) are the rates of change wrt time of the quantity of the drug in the
         peripheral compartments [ng/h]
         """
@@ -112,9 +112,9 @@ class Model:
         :param dosing: string, indicating if the dosing protocal is "constant" or "injection"
 
         :returns: list, first entry (float) is the rate of change of the quantity of the drug
-        in the first compartment with respect to (wrt) time [ng/h] and second entry (float) is 
-        the rate of change of the quantity of the drug in the central compartment with respect to (wrt) time [ng/h]. Likewise, the following
-        entries (float) are the rates of change wrt time of the quantity of the drug in the
+        in the first compartment with respect to (wrt) time [ng/h] and second entry (float) is
+        the rate of change of the quantity of the drug in the central compartment with respect
+        to (wrt) time [ng/h]. Likewise, the rest of the entries (float) are the rates of change wrt time of the quantity of the drug in the
         peripheral compartments [ng/h]
         """
         if type(Q_p) is not list or type(V_p) is not list:
