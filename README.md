@@ -1,4 +1,4 @@
-[![Python package PKPD](https://github.com/ejin700/pkpd/actions/workflows/pkpd_ci.yml/badge.svg?branch=master)](https://github.com/ejin700/pkpd/actions/workflows/pkpd_ci.yml)
+<!-- [![Python package PKPD](https://github.com/ejin700/pkpd/actions/workflows/pkpd_ci.yml/badge.svg?branch=master)](https://github.com/ejin700/pkpd/actions/workflows/pkpd_ci.yml) -->
 
 [![Run on multiple OS](https://github.com/ejin700/pkpd/actions/workflows/os_tests.yml/badge.svg)](https://github.com/ejin700/pkpd/actions/workflows/os_tests.yml)
 
