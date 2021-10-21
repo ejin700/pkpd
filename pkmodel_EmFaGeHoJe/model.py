@@ -57,7 +57,7 @@ class Model:
         # Here, we also want 1000 * X [ng] to be applied, so we multiply the 
         # instantaneous dose by 100, so that the total dose is 10 * 100 * X,
         # the same as in dose_constant
-        if t < 10:
+        if t < 0.01:
             return X * 100
         else:
             return 0

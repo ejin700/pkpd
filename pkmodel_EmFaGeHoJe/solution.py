@@ -37,7 +37,7 @@ class Solution:
         self.parameters = parameters
         # Set the times evaluated to be 1000 points equally spaced between 
         # 0 and 1 hours (inclusive)
-        self.t_eval = np.linspace(0, 1, 1000)
+        self.t_eval = np.linspace(0, 1, 1000, endpoint=False)
         
         self.fig = plt.figure()
         
