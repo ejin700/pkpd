@@ -48,18 +48,28 @@ class Model:
         """
         return X
 
-    def get_rhs_IV(self,t, y, Q_p1, V_c, V_p1, CL, X):
+    def get_rhs_IV(self,t, y, Q_p, V_c, V_p, CL, X, N):
         """
         :returns: list, first entry (float) is the rate of change of the quantity of the drug 
         in the central compartment with respect to (wrt) time [ng/h]. Likewise, the second 
         entry (float) is the rate of change wrt time of the quantity of the drug in the first 
         peripheral compartment [ng/h]
+
+        N is the number of peripheral compartments
+        Q_p is a list with len N such that each entry is the transition rate between the central and the i-th peripheral compartment
+        V_P is a list with len N such that each entry is the volume of the i-th peripheral compartment
+        Both y, list_of_q and list_of_rhs have length N+1 since they include both central and peripheral compartmetns
+
+
+
         """
-        q_c, q_p1 = y
-        transition = Q_p1 * (q_c / V_c - q_p1 / V_p1)
-        dqc_dt = self.dose(t, X) - q_c / V_c * CL - transition
-        dqp1_dt = transition
-        return [dqc_dt, dqp1_dt]
+        list_of_q = y
+        list_of_rhs = [None] *(N+1)
+        list_of_rhs[0] = self.dose(t, X) - list_of_q[0] / V_c * CL
+        for i in range(1,N+1):
+            list_of_rhs[i] = Q_p[i-1] * (list_of_q[0] / V_c - list_of_q[i] / V_p[i-1]) 
+            list_of_rhs[0] = list_of_rhs[0]-list_of_rhs[i]
+        return list_of_rhs
 
 
     def get_rhs_sub(self, t, y, Q_p1, V_c, V_p1, CL, X, k_a):
