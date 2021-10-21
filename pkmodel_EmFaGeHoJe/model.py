@@ -27,17 +27,6 @@ class Model:
         pass
         
 
-#    def add_parameters_IV(self, Q_p1, V_c, V_p1, CL, dose):
-#        """"""
-#        dict_parameter = {
-#            'Q_p1' : Q_p1,
-#            'V_c' : V_c,
-#            'V_p1' : V_p1,
-#            'CL' : CL,
-#            'dose' : dose
-#        }
-#        self.param = dict_parameter
-#        return dict_parameter
     def dose_constant(self, t, X):
         """
         Calculate the instantaneous dose for a given time (t) and input dose (X)
@@ -49,7 +38,7 @@ class Model:
         :returns: float, instantaneous dose, [ng/h]
         """
 
-        # The instantaneous dose is constant over time, analogous to an 
+        # Each 1000th of an hour, X [ng] are applied, so 1000 * X [ng] are applied
         return X
 
 
@@ -65,12 +54,15 @@ class Model:
         :returns: float, instantaneous dose, [ng/h]
         """
 
+        # Here, we also want 1000 * X [ng] to be applied, so we multiply the 
+        # instantaneous dose by 100, so that the total dose is 10 * 100 * X,
+        # the same as in dose_constant
         if t < 10:
             return X * 100
         else:
             return 0
 
-    def get_rhs_IV(self,t, y, Q_p, V_c, V_p, CL, X, N):
+    def get_rhs_IV(self,t, y, Q_p, V_c, V_p, CL, X, N, dosing):
         """
 
         Calculate the right hand side (rhs) for the differential equations of the
@@ -103,19 +95,33 @@ class Model:
 
         # We set the inital quantities of the drug in the central and peripheral compartments
         # equal, this is the steady state, a natural choice for y is [0, 0] (no drug present)
+        if dosing == "constant":
+            dose = self.dose_constant
+        elif dosing == "injection":
+            dose = self.dose_injection
+        else:
+            raise ValueError("the two possible dosing protocals are 'constant' and 'injection'")
+        
+        
         list_of_q = y
         list_of_rhs = [None] * (N+1)
-        list_of_rhs[0] = self.dose(t, X) - list_of_q[0] / V_c * CL
+        list_of_rhs[0] = dose(t, X) - list_of_q[0] / V_c * CL
         for i in range(1,N+1):
             list_of_rhs[i] = Q_p[i-1] * (list_of_q[0] / V_c - list_of_q[i] / V_p[i-1]) 
             list_of_rhs[0] = list_of_rhs[0]-list_of_rhs[i]
         return list_of_rhs
 
 
-    def get_rhs_sub(self, t, y, Q_p, V_c, V_p, CL, X, k_a, N):
+    def get_rhs_sub(self, t, y, Q_p, V_c, V_p, CL, X, k_a, N, dosing):
+        if dosing == "constant":
+            dose = self.dose_constant
+        elif dosing == "injection":
+            dose = self.dose_injection
+        else:
+            raise ValueError("the two possible dosing protocals are 'constant' and 'injection'")
         list_of_q = y
         list_of_rhs = [None] * (N+2)
-        list_of_rhs[0] = self.dose(t,X) - k_a * list_of_q[0]
+        list_of_rhs[0] = dose(t,X) - k_a * list_of_q[0]
         list_of_rhs[1] = k_a * list_of_q[0] - list_of_q[1] / V_c * CL
         for i in range(2,N+2):
             list_of_rhs[i] = Q_p[i-2] * (list_of_q[1] / V_c - list_of_q[i] / V_p[i-2])

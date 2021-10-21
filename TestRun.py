@@ -22,7 +22,8 @@ model1_args = {
     'V_p': [1.0, 3.0],
     'CL': 1.0,
     'X': 1.0,
-    'N': 2,  # N is the number of peripheral compartments, and must be an integer
+    'N': 2, #Note that N is the number of peripheral compartments, has to be an integer
+    'dosing' : 'injection'
 }
 
 model2_args = {
@@ -33,9 +34,10 @@ model2_args = {
     'CL': 1.0,
     'X': 1.0,
     'N': 1,
+    'dosing' : 'injection'
 }
 
-#PKmodel.solveODE([model1_args, model2_args], model='IV')
+PKmodel.solve_and_plot_ODE([model1_args, model2_args], model='IV')
 
 model3_args = {
     'name': 'model1',
@@ -45,7 +47,8 @@ model3_args = {
     'CL': 1.0,
     'X': 1.0,
     'k_a': 5.0,
-    'N' : 3
+    'N' : 3,
+    'dosing' : 'injection'
 }
 
-PKmodel.solve_and_plot_ODE([model3_args], model='sub')
+#PKmodel.solve_and_plot_ODE([model3_args], model='sub')
