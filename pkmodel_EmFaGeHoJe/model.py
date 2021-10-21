@@ -27,17 +27,6 @@ class Model:
         pass
         
 
-#    def add_parameters_IV(self, Q_p1, V_c, V_p1, CL, dose):
-#        """"""
-#        dict_parameter = {
-#            'Q_p1' : Q_p1,
-#            'V_c' : V_c,
-#            'V_p1' : V_p1,
-#            'CL' : CL,
-#            'dose' : dose
-#        }
-#        self.param = dict_parameter
-#        return dict_parameter
     def dose_constant(self, t, X):
         """
         Calculate the instantaneous dose for a given time (t) and input dose (X)
@@ -49,7 +38,7 @@ class Model:
         :returns: float, instantaneous dose, [ng/h]
         """
 
-        # The instantaneous dose is constant over time, analogous to an 
+        # Each 1000th of an hour, X [ng] are applied, so 1000 * X [ng] are applied
         return X
 
 
@@ -65,6 +54,9 @@ class Model:
         :returns: float, instantaneous dose, [ng/h]
         """
 
+        # Here, we also want 1000 * X [ng] to be applied, so we multiply the 
+        # instantaneous dose by 100, so that the total dose is 10 * 100 * X,
+        # the same as in dose_constant
         if t < 10:
             return X * 100
         else:
