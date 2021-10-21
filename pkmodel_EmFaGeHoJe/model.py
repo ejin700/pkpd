@@ -106,13 +106,3 @@ class Model:
 
 
 
-
-        transition_1 = k_a * q_0
-        transition_2 = Q_p1 * (q_c / V_c - q_p1 / V_p1)
-        dq0_dt = self.dose(t,X) - transition_1
-        dqc_dt = transition_1 - q_c / V_c * CL - transition_2
-        dqp1_dt = transition_2
-        return [dq0_dt, dqc_dt, dqp1_dt]
-
-
-
