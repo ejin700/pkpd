@@ -2,6 +2,8 @@
 
 [![Run on multiple OS](https://github.com/ejin700/pkpd/actions/workflows/os_tests.yml/badge.svg)](https://github.com/ejin700/pkpd/actions/workflows/os_tests.yml)
 
+[![Documentation Status](https://readthedocs.org/projects/pk-project/badge/?version=latest)](https://pk-project.readthedocs.io/en/latest/?badge=latest)
+
 # **Software engineering project 2021**
 ## **Pharmacokinetic modelling**
 
