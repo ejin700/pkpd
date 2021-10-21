@@ -84,7 +84,7 @@ class Solution:
                     t_span=[self.t_eval[0], self.t_eval[-1]],
                     y0=self.y0, t_eval=self.t_eval
                 )
-                plt.plot(sol.t, sol.y[0, :], label=parameter['name'] + '- q0')
+                plt.plot(sol.t, sol.y[0, :], label=parameter['name'] + '- q_0')
                 plt.plot(sol.t, sol.y[1, :], label=parameter['name'] + '- q_c')
                 for i in range(1, parameter['N'] + 1):
                     plt.plot(sol.t, sol.y[i + 1, :], label=parameter['name'] + f'- q_p{i}')
