@@ -47,7 +47,8 @@ model3_args = {
     'CL': 1.0,
     'X': 1.0,
     'k_a': 5.0,
-    'N' : 3
+    'N' : 3,
+    'dosing' : 'injection'
 }
 
 #PKmodel.solve_and_plot_ODE([model3_args], model='sub')
