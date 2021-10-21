@@ -40,7 +40,7 @@ class Solution:
             several sets of parameters to plot multiple models can be passed to the method inside a list.
         :param model: string, optional
             specify type of dosing, model='IV' for intravenous (default), model='sub' for subcutaneous
-        
+
         :retuns: plot of the PK model
         '''
         self.parameters = parameters
@@ -54,7 +54,7 @@ class Solution:
 
                 # Create a list of the arguments to the rhs function
                 args = [
-                    parameter['Q_p'], parameter['V_c'], parameter['V_p'], 
+                    parameter['Q_p'], parameter['V_c'], parameter['V_p'],
                     parameter['CL'], parameter['X'], parameter['N'], parameter['dosing']
                 ]
 

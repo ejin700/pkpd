@@ -120,6 +120,6 @@ class Model:
         list_of_rhs[0] = dose(t, X) - k_a * list_of_q[0]
         list_of_rhs[1] = k_a * list_of_q[0] - list_of_q[1] / V_c * CL
         for i in range(2, N + 2):
-            list_of_rhs[i] = Q_p[i-2] * (list_of_q[1] / V_c - list_of_q[i] / V_p[i - 2])
+            list_of_rhs[i] = Q_p[i - 2] * (list_of_q[1] / V_c - list_of_q[i] / V_p[i - 2])
             list_of_rhs[1] = list_of_rhs[1] - list_of_rhs[i]
         return list_of_rhs
