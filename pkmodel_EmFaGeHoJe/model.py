@@ -98,7 +98,7 @@ class Model:
         if type(N) is not int:
             raise TypeError("The type of N should be int")
         if N != len(Q_p) or N != len(V_p):
-            raise IndexError("The length of Q_p and V_p should be equal to N")         
+            raise IndexError("The length of Q_p and V_p should be equal to N")
         if dosing == "constant":
             dose = self.dose_constant
         elif dosing == "injection":
@@ -120,7 +120,7 @@ class Model:
         if type(N) is not int:
             raise TypeError("The type of N should be int")
         if N != len(Q_p) or N != len(V_p):
-            raise IndexError("The length of Q_p and V_p should be equal to N") 
+            raise IndexError("The length of Q_p and V_p should be equal to N")
         if dosing == "constant":
             dose = self.dose_constant
         elif dosing == "injection":

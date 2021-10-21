@@ -1,6 +1,7 @@
 import unittest
 import pkmodel_EmFaGeHoJe.solution as pks
 
+
 class SolutionTest(unittest.TestCase):
     """
     Tests the :class:`Solution` class.
