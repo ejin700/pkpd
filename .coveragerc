@@ -1,4 +1,4 @@
 [run]
-source = ci_course
+source = pkmodel_EmFaGeHoJe
 omit =
-    ci_course/tests/*
+    pkmodel_EmFaGeHoJe/tests/*
