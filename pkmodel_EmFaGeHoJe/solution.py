@@ -8,6 +8,7 @@ import matplotlib.pylab as plt
 import numpy as np
 import scipy.integrate
 
+
 class Solution:
     """A class that solves a Pharmacokinetics model
 
@@ -19,7 +20,7 @@ class Solution:
     """
     def __init__(self):
         self.Model = Model()
-    
+
     def solve_and_plot_ODE(self, parameters, model='IV'):
         '''
         Solves ODE and plots pk model.
@@ -43,24 +44,23 @@ class Solution:
         :retuns: plot of the PK model
         '''
         self.parameters = parameters
-        # Set the times evaluated to be 1000 points equally spaced between 
+        # Set the times evaluated to be 1000 points equally spaced between
         # 0 and 1 hours (inclusive)
         self.t_eval = np.linspace(0, 1, 1000, endpoint=False)
-        
         self.fig = plt.figure()
-        
 
         if model == 'IV':
             for parameter in parameters:
 
                 # Create a list of the arguments to the rhs function
                 args = [
-                    parameter['Q_p'], parameter['V_c'], parameter['V_p'], parameter['CL'], parameter['X'], parameter['N'],parameter['dosing'],
+                    parameter['Q_p'], parameter['V_c'], parameter['V_p'], 
+                    parameter['CL'], parameter['X'], parameter['N'], parameter['dosing']
                 ]
 
-                # Set the initial amounts of the drug in the central and first peripheral compartments, 
+                # Set the initial amounts of the drug in the central and first peripheral compartments,
                 # respectively, to both 0
-                self.y0 = np.zeros(parameter['N']+1)
+                self.y0 = np.zeros(parameter['N'] + 1)
 
                 # Solve and plot
                 sol = scipy.integrate.solve_ivp(
@@ -69,20 +69,16 @@ class Solution:
                     y0=self.y0, t_eval=self.t_eval
                 )
                 plt.plot(sol.t, sol.y[0, :], label=parameter['name'] + '- q_c')
-                for i in range(1,parameter['N']+1):
+                for i in range(1, parameter['N'] + 1):
                     plt.plot(sol.t, sol.y[i, :], label=parameter['name'] + f'- q_p{i}')
 
-                
-                
-
         elif model == 'sub':
-            
             for parameter in parameters:
                 args = [
                     parameter['Q_p'], parameter['V_c'], parameter['V_p'], parameter['CL'], parameter['X'], parameter['k_a'],
                     parameter['N'], parameter['dosing'],
                 ]
-                self.y0 = np.zeros(parameter['N']+2)
+                self.y0 = np.zeros(parameter['N'] + 2)
                 sol = scipy.integrate.solve_ivp(
                     fun=lambda t, y: self.Model.get_rhs_sub(t, y, *args),
                     t_span=[self.t_eval[0], self.t_eval[-1]],
@@ -90,9 +86,9 @@ class Solution:
                 )
                 plt.plot(sol.t, sol.y[0, :], label=parameter['name'] + '- q0')
                 plt.plot(sol.t, sol.y[1, :], label=parameter['name'] + '- q_c')
-                for i in range(1, parameter['N']+1):
-                    plt.plot(sol.t, sol.y[i+1, :], label=parameter['name'] + f'- q_p{i}')
-        
+                for i in range(1, parameter['N'] + 1):
+                    plt.plot(sol.t, sol.y[i + 1, :], label=parameter['name'] + f'- q_p{i}')
+
         else:
             raise ValueError("the two possible models are 'IV' and 'sub")
 
