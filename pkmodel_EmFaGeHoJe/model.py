@@ -95,6 +95,10 @@ class Model:
 
         # We set the inital quantities of the drug in the central and peripheral compartments
         # equal, this is the steady state, a natural choice for y is [0, 0] (no drug present)
+        if type(Q_p) is not list or type(V_p) is not list:
+            raise TypeError("The type of Q_p and V_p should be a list")
+        if N != len(Q_p) or N != len(V_p):
+            raise IndexError("The length of Q_p and V_p should be equal to N")         
         if dosing == "constant":
             dose = self.dose_constant
         elif dosing == "injection":
@@ -111,8 +115,11 @@ class Model:
             list_of_rhs[0] = list_of_rhs[0]-list_of_rhs[i]
         return list_of_rhs
 
-
     def get_rhs_sub(self, t, y, Q_p, V_c, V_p, CL, X, k_a, N, dosing):
+        if type(Q_p) is not list or type(V_p) is not list:
+            raise TypeError("The type of Q_p and V_p should be a list")
+        if N != len(Q_p) or N != len(V_p):
+            raise IndexError("The length of Q_p and V_p should be equal to N") 
         if dosing == "constant":
             dose = self.dose_constant
         elif dosing == "injection":
