@@ -95,6 +95,8 @@ class Model:
         # equal, this is the steady state, a natural choice for y is [0, 0] (no drug present)
         if type(Q_p) is not list or type(V_p) is not list:
             raise TypeError("The type of Q_p and V_p should be a list")
+        if type(N) is not int:
+            raise TypeError("The type of N should be int")
         if N != len(Q_p) or N != len(V_p):
             raise IndexError("The length of Q_p and V_p should be equal to N")         
         if dosing == "constant":
@@ -115,6 +117,8 @@ class Model:
     def get_rhs_sub(self, t, y, Q_p, V_c, V_p, CL, X, k_a, N, dosing):
         if type(Q_p) is not list or type(V_p) is not list:
             raise TypeError("The type of Q_p and V_p should be a list")
+        if type(N) is not int:
+            raise TypeError("The type of N should be int")
         if N != len(Q_p) or N != len(V_p):
             raise IndexError("The length of Q_p and V_p should be equal to N") 
         if dosing == "constant":
@@ -128,6 +132,6 @@ class Model:
         list_of_rhs[0] = dose(t, X) - k_a * list_of_q[0]
         list_of_rhs[1] = k_a * list_of_q[0] - list_of_q[1] / V_c * CL
         for i in range(2, N + 2):
-            list_of_rhs[i] = Q_p[i-2] * (list_of_q[1] / V_c - list_of_q[i] / V_p[i - 2])
+            list_of_rhs[i] = Q_p[i - 2] * (list_of_q[1] / V_c - list_of_q[i] / V_p[i - 2])
             list_of_rhs[1] = list_of_rhs[1] - list_of_rhs[i]
         return list_of_rhs
