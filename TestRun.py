@@ -48,4 +48,4 @@ model3_args = {
     'N' : 3
 }
 
-PKmodel.solveODE([model3_args], model='sub')
+PKmodel.solve_and_plot_ODE([model3_args], model='sub')
