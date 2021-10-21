@@ -25,6 +25,7 @@ class ModelTest(unittest.TestCase):
 
         self.assertEqual(total_dose, 1000 * X)
 
+
 if __name__ == '__main__':
     unittest.main()
 
