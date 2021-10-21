@@ -47,7 +47,7 @@ class Solution:
 
                 # Create a list of the arguments to the rhs function
                 args = [
-                    parameter['Q_p'], parameter['V_c'], parameter['V_p'], parameter['CL'], parameter['X'], parameter['N']
+                    parameter['Q_p'], parameter['V_c'], parameter['V_p'], parameter['CL'], parameter['X'], parameter['N'],parameter['dosing'],
                 ]
 
                 # Set the initial amounts of the drug in the central and first peripheral compartments, 
@@ -72,7 +72,7 @@ class Solution:
             for parameter in parameters:
                 args = [
                     parameter['Q_p'], parameter['V_c'], parameter['V_p'], parameter['CL'], parameter['X'], parameter['k_a'],
-                    parameter['N'],
+                    parameter['N'], parameter['dosing'],
                 ]
                 self.y0 = np.zeros(parameter['N']+2)
                 sol = scipy.integrate.solve_ivp(

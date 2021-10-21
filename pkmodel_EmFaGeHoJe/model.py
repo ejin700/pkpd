@@ -62,7 +62,7 @@ class Model:
         else:
             return 0
 
-    def get_rhs_IV(self,t, y, Q_p, V_c, V_p, CL, X, N):
+    def get_rhs_IV(self,t, y, Q_p, V_c, V_p, CL, X, N, dosing):
         """
 
         Calculate the right hand side (rhs) for the differential equations of the
@@ -95,19 +95,33 @@ class Model:
 
         # We set the inital quantities of the drug in the central and peripheral compartments
         # equal, this is the steady state, a natural choice for y is [0, 0] (no drug present)
+        if dosing == "constant":
+            dose = self.dose_constant
+        elif dosing == "injection":
+            dose = self.dose_injection
+        else:
+            raise ValueError("the two possible dosing protocals are 'constant' and 'injection'")
+        
+        
         list_of_q = y
         list_of_rhs = [None] * (N+1)
-        list_of_rhs[0] = self.dose(t, X) - list_of_q[0] / V_c * CL
+        list_of_rhs[0] = dose(t, X) - list_of_q[0] / V_c * CL
         for i in range(1,N+1):
             list_of_rhs[i] = Q_p[i-1] * (list_of_q[0] / V_c - list_of_q[i] / V_p[i-1]) 
             list_of_rhs[0] = list_of_rhs[0]-list_of_rhs[i]
         return list_of_rhs
 
 
-    def get_rhs_sub(self, t, y, Q_p, V_c, V_p, CL, X, k_a, N):
+    def get_rhs_sub(self, t, y, Q_p, V_c, V_p, CL, X, k_a, N, dosing):
+        if dosing == "constant":
+            dose = self.dose_constant
+        elif dosing == "injection":
+            dose = self.dose_injection
+        else:
+            raise ValueError("the two possible dosing protocals are 'constant' and 'injection'")
         list_of_q = y
         list_of_rhs = [None] * (N+2)
-        list_of_rhs[0] = self.dose(t,X) - k_a * list_of_q[0]
+        list_of_rhs[0] = dose(t,X) - k_a * list_of_q[0]
         list_of_rhs[1] = k_a * list_of_q[0] - list_of_q[1] / V_c * CL
         for i in range(2,N+2):
             list_of_rhs[i] = Q_p[i-2] * (list_of_q[1] / V_c - list_of_q[i] / V_p[i-2])
