@@ -4,6 +4,7 @@ import unittest
 import pkmodel_EmFaGeHoJe.model as pkm
 import numpy as np
 
+
 class ModelTest(unittest.TestCase):
     """
     Tests the :class:`Model` class.
@@ -21,10 +22,8 @@ class ModelTest(unittest.TestCase):
         total_dose = 0
         for t in t_eval:
             total_dose += PKmodel.dose_constant(t=t, X=X)
-        
+
         self.assertEqual(total_dose, 1000 * X)
-
-
 
 if __name__ == '__main__':
     unittest.main()
